@@ -3,53 +3,31 @@
 
 钱包/交易接口
 --------
-- [getAccount](#getAccount)
-- [getBalance](#getbalance)
-- [getTransactions](#gettransactions)
-- [transferBTC](#transferbtc)
-- [buyOrder](#buyorder)
-- [sellOrder](#sellorder)
-- [cancelOrder](#cancelorder)
-- [getOrder](#getorder)
-- [getOrders](#getorders)
+
+- [getContacts](#getcontacts)   获取所有收款人
+- [addContact](#addcontact)   添加收款人
+- [addBTCAddress](#addbtcaddress)   添加新的比特币收款地址
+- [getBTCAddresses](#getbtcaddresses)    获取所有比特币收款地址
+- [getAccount](#getaccount)  获取账户信息
+- [getBalance](#getbalance)  获取余额信息
+- [getTransactions](#gettransactions)  获取交易记录
+- [transferBTC](#transferbtc)  转出/提现比特币
+- [buyOrder](#buyorder)  下比特币买单
+- [sellOrder](#sellorder)  下比特币卖单
+- [cancelOrder](#cancelorder)  取消挂单
+- [getOrder](#getorder)  获取订单信息
+- [getOrders](#getorders)  获取多个订单信息
 
 ***
+### getContacts
 
-### getAccount  
+***描述:***  获取所有收款人
 
-***描述:***  获取交易记录
-
-***参数:***
-<table>
-  <tr>
-    <th>参数</th><th>类型</th><th>必选</th><th>允许值</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>type</td><td>String</td><td>是</td>
-    <td>
-      'btc_deposit' : 比特币充值记录 <br>
-      'btc_transfer' : 比特币转账和提现记录 <br>
-      'trade_btc' : 比特币交易记录(包含买入和卖出记录) <br>
-      'buy_btc' : 比特币买入记录 <br>
-      'sell_btc' : 比特币卖出记录 <br>
-      'btc_transfer_fee' : 比特币转账和提现手续费 <br>
-      'trade_fee' : 交易手续费
-    </td>
-    <td>获取特定类型的交易记录</td>
-  </tr>
-  <tr>
-    <td>type</td><td>Number</td><td>否</td>
-    <td>
-      正整数,缺省值为10
-    </td>
-    <td>获取数量</td>
-  </tr>
-
-</table>
+***参数:*** 无
 
 ***JSON请求示例:***
 ```json
-{"method":"getTransactions","params":['trade_btc',2],"id":1}
+{"method":"getContacts","params":[],"id":1}
 ```
 ***返回值:***
 <table>
@@ -57,30 +35,218 @@
     <th>名称</th><th>类型</th><th>说明</th>
   </tr>
   <tr>
-    <td>result</td><td>Array</td><td>包含Transaction对象的数组</td>
+    <td>result</td><td>Object[]</td><td>Contact对象数组</td>
   </tr>
 </table>
 ***JSON返回示例:***
 ```json
 {
-    "result": [
-        {
-            "id": 3164,
-            "btc_amount": "0.43431000",
-            "cny_amount": "35.00",
-            "fee_btc": "0.00000000",
-            "type": "trade_in",
-            "time": 1387119208
-        },
-        {
-            "id": 6164,
-            "btc_amount": "0.13431000",
-            "cny_amount": "474.97",
-            "fee_btc": "0.00000000",
-            "type": "trade_in",
-            "time": 1387119412
+    "result": {
+        "contacts":[
+                {
+                    "address": "1KuCoin5Rew1viKZYkgeds21Y19pdLpuhb",
+                    "name" : "John"
+                },
+                {
+                    "address": "Jason.Lee",
+                    "name" : "Jason.Lee"
+                },
+                {
+                    "address": "grace@gmail.com",
+                    "name" : "Grace"
+                }
+            ]
         }
-    ],
+    ,
+    "id": 1
+}
+```
+***
+### addContact
+
+***描述:***  添加收款人
+
+***参数:*** 
+
+<table>
+  <tr>
+    <th>名称</th><th>类型</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>Address</td><td>String</td><td>联系人的收款地址，可以是比特币地址，KUCOIN的用户名或者登录邮箱（请自行确保其有效性）</td>
+  </tr>
+  <tr>
+    <td>Name</td><td>String</td><td>用于显示的收款人姓名</td>
+  </tr>
+</table>
+
+***JSON请求示例:***
+```json
+{"method":"addContact","params":["1KuCoin5Rew1viKZYkgeds21Y19pdLpuhb","John"],"id":1}
+```
+***返回值:***
+<table>
+  <tr>
+    <th>名称</th><th>类型</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>result</td><td>Boolean</td><td>添加结果</td>
+  </tr>
+</table>
+***JSON返回示例:***
+```json
+{ "result": true, "id": 1 }
+```
+
+***
+### addBTCAddress
+
+***描述:***  获取一个新的比特币收款地址
+
+***参数:*** 无
+
+***JSON请求示例:***
+```json
+{"method":"createBTCAddress","params":[],"id":1}
+```
+***返回值:***
+<table>
+  <tr>
+    <th>名称</th><th>类型</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>result</td><td>Object</td><td>Address对象</td>
+  </tr>
+</table>
+***JSON返回示例:***
+```json
+{
+    "result": {
+        "address":
+                {
+                    "address": "1KuCoin5Rew1viKZYkgeds21Y19pdLpuhb",
+                    "label" : "",
+                }
+            ]
+        }
+    ,
+    "id": 1
+}
+```
+
+***
+### getBTCAddresses  
+
+***描述:***  获取账户全部比特币收款地址
+
+***参数:*** 无
+
+***JSON请求示例:***
+```json
+{"method":"getBTCAddresses","params":[],"id":1}
+```
+***返回值:***
+<table>
+  <tr>
+    <th>名称</th><th>类型</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>result</td><td>Object[]</td><td>Address对象数组</td>
+  </tr>
+</table>
+***JSON返回示例:***
+```json
+{
+    "result": {
+        "addresses":[
+                {
+                    "address": "1KuCoiNkB6ckLWbcad3N4h16MLUtPa8M9K",
+                    "label" : "default",
+                },
+                {
+                    "address": "1KucoinXL8sxfmesmdQHR6YfC6p2XsZ7Km",
+                    "label" : "donation",
+                }
+            ]
+        }
+    ,
+    "id": 1
+}
+```
+***
+### getAccount  
+
+***描述:***  获取账户信息
+
+***参数:*** 无
+
+***JSON请求示例:***
+```json
+{"method":"getAccount","params":[],"id":1}
+```
+***返回值:***
+<table>
+  <tr>
+    <th>名称</th><th>类型</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>result</td><td>Object</td><td>Account对象</td>
+  </tr>
+</table>
+***JSON返回示例:***
+```json
+{
+    "result": {
+        "account":
+            {
+                "email": "jason.lee@gmail.com",
+                "username" : "jason.lee",
+                "daily_btc_limit" : "1000",
+                "mobile" : "18616802032"
+            }
+        }
+    ,
+    "id": 1
+}
+```
+***
+### getBalance  
+
+***描述:***  获取账户余额
+
+***参数:*** 无
+
+***JSON请求示例:***
+```json
+{"method":"getBalance","params":[],"id":1}
+```
+***返回值:***
+<table>
+  <tr>
+    <th>名称</th><th>类型</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>result</td><td>Object[]</td><td>包含Balance对象的数组</td>
+  </tr>
+</table>
+***JSON返回示例:***
+```json
+{
+    "result": {
+        "balances": [
+            {
+                "currency": "BTC",
+                "balance": 1001.55812,
+                "unconfirmed_balance": 0,
+                "update_time": 1387125744
+            },
+            {
+                "currency": "CNY",
+                "balance": 995075.31,
+                "update_time": 1387125744
+            }
+        ]
+    },
     "id": 1
 }
 ```

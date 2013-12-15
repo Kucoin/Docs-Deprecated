@@ -3,6 +3,7 @@
 
 钱包/交易接口
 --------
+- [getAccount](#getAccount)
 - [getBalance](#getbalance)
 - [getTransactions](#gettransactions)
 - [transferBTC](#transferbtc)
@@ -12,6 +13,77 @@
 - [getOrder](#getorder)
 - [getOrders](#getorders)
 
+***
+
+### getAccount  
+
+***描述:***  获取交易记录
+
+***参数:***
+<table>
+  <tr>
+    <th>参数</th><th>类型</th><th>必选</th><th>允许值</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>type</td><td>String</td><td>是</td>
+    <td>
+      'btc_deposit' : 比特币充值记录 <br>
+      'btc_transfer' : 比特币转账和提现记录 <br>
+      'trade_btc' : 比特币交易记录(包含买入和卖出记录) <br>
+      'buy_btc' : 比特币买入记录 <br>
+      'sell_btc' : 比特币卖出记录 <br>
+      'btc_transfer_fee' : 比特币转账和提现手续费 <br>
+      'trade_fee' : 交易手续费
+    </td>
+    <td>获取特定类型的交易记录</td>
+  </tr>
+  <tr>
+    <td>type</td><td>Number</td><td>否</td>
+    <td>
+      正整数,缺省值为10
+    </td>
+    <td>获取数量</td>
+  </tr>
+
+</table>
+
+***JSON请求示例:***
+```json
+{"method":"getTransactions","params":['trade_btc',2],"id":1}
+```
+***返回值:***
+<table>
+  <tr>
+    <th>名称</th><th>类型</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>result</td><td>Array</td><td>包含Transaction对象的数组</td>
+  </tr>
+</table>
+***JSON返回示例:***
+```json
+{
+    "result": [
+        {
+            "id": 3164,
+            "btc_amount": "0.43431000",
+            "cny_amount": "35.00",
+            "fee_btc": "0.00000000",
+            "type": "trade_in",
+            "time": 1387119208
+        },
+        {
+            "id": 6164,
+            "btc_amount": "0.13431000",
+            "cny_amount": "474.97",
+            "fee_btc": "0.00000000",
+            "type": "trade_in",
+            "time": 1387119412
+        }
+    ],
+    "id": 1
+}
+```
 ***
 ### getTransactions  
 

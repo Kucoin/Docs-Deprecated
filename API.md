@@ -1,9 +1,61 @@
-行情数据接口
+1. 行情数据接口 
 --------
+***以下均为公开接口，可以直接使用HTTP GET方式调用***
 
-钱包/交易接口
+***
+### Depth 当前市场挂单深度
+
+***GET:***  https://www.kucoin.com/data/depth
+
+***参数:*** 
+<table>
+  <tr>
+    <th>名称</th><th>类型</th><th>可选值</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>limit</td><td>Number</td><td>10(默认),50,100</td><td>获取条数</td>
+  </tr>
+  <tr>
+    <td>group</td><td>Number</td><td>
+    0 : 不合并 <br>
+    1 : 以0.1元为单位合并数据 <br>
+    2 : 以1元为单位合并数据 (默认)<br>
+    3 : 以10元为单位合并数据 
+    </td><td>合并数据的方式</td>
+  </tr>
+</table>
+
+***
+### Ticker 
+
+***GET:***  https://www.kucoin.com/data/ticker
+
+***参数:*** 无
+
+***
+### Deal 最近成交记录
+
+***GET:***  https://www.kucoin.com/data/deal
+
+***参数:*** 
+<table>
+  <tr>
+    <th>名称</th><th>类型</th><th>可选值</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>limit</td><td>Number</td><td>10(默认),50,100</td><td>获取条数</td>
+  </tr>
+  <tr>
+    <td>time</td><td>Number</td><td>Unix时间戳</td><td>只返回此时间之后的成交记录</td>
+  </tr>
+</table>
+
+***
+
+2. 钱包/交易接口 
 --------
-
+***以下均为私密接口，调用前需要使用账户的访问密钥进行[接口签名认证](#接口签名认证详细步骤)，并以HTTP POST(JsonRPC 2.0)的方式进行调用***
+ 
 - [getContacts](#getcontacts)   获取所有收款人
 - [addContact](#addcontact)   添加收款人
 - [addBTCAddress](#addbtcaddress)   添加新的比特币收款地址
@@ -17,6 +69,88 @@
 - [cancelOrder](#cancelorder)  取消挂单
 - [getOrder](#getorder)  获取订单信息
 - [getOrders](#getorders)  获取多个订单信息
+
+
+***
+### 接口调用代码
+
+PHP示例代码：
+```php
+
+    /**
+     * 对请求的数据进行数字签名
+     */
+    function sign(array $postDatas){
+
+        //在网站开发接口页面获取$accessKey和$secretKey
+        $accessKey = "689ba659-490d-55ad-6968-ccbc5eac74f9";
+        $secretKey = "79708445-2070-ae1e-356e-6faef1b50e1d";
+
+        $time = explode(' ', microtime());
+        $nonce = $time[1] . substr($time[0], 2, 6);
+
+        $data = [
+            'nonce' => $nonce,
+            'accessKey' => $accessKey,
+            'data'=> json_encode($postDatas)
+        ];
+
+        $hash = base64_encode(hash_hmac('sha512',  base64_encode(json_encode($data)) , $secretKey));
+
+        return [
+            'accessKey' => $accessKey,
+            'hash' => $hash,
+            'nonce' => $nonce
+        ];
+
+    }
+
+    /**
+     * 调用接口
+     */
+    function callAPI($method, array $params){
+
+        $api_url = "https://www.kucoin.com/api/v1";
+
+        $postData = [
+            'method' => $method,
+            'params' => $params,
+            'id' => 1,
+        ];
+
+        $sign = $this->sign($postData);
+
+        $postData = json_encode($postData);
+
+        $headers = [
+            'RPC-Signature:' . $sign['hash'],
+            'RPC-AccessKey:' . $sign['accessKey'],
+            'RPC-Nonce:'     . $sign['nonce'],
+            'Content-Type:application/json'
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT,
+            'Mozilla/4.0 (compatible; Kucoin Bot; '.php_uname('a').'; PHP/'.phpversion().')'
+        );
+        curl_setopt($ch, CURLOPT_URL, $api_url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+        $res = curl_exec($ch);
+        return $res;
+
+    }
+    
+    $res = callAPI('getBalance',[]);
+    var_dump($res);
+    
+```
+
+***其他语言的示例代码请在Github代码仓库的对应文件中查看***
+
 
 ***
 ### getContacts

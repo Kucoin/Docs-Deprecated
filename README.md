@@ -5,6 +5,7 @@
 --------
 - [getBalance](#getbalance)
 - [getTransactions](#gettransactions)
+- [transferBTC](#transferBTC)
 
 ***
 ### getTransactions  
@@ -76,7 +77,59 @@
     "id": 1
 }
 ```
+***
+### transferBTC  
 
+***描述:***  转出比特币
+
+***参数:***
+<table>
+  <tr>
+    <th>参数</th><th>类型</th><th>必选</th><th>允许值</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>type</td><td>String</td><td>是</td>
+    <td>
+      'btc_address' : 比特币地址 <br>
+      'username' :  KUCOIN用户名 <br>
+      'email' : KUCOIN用户的邮箱 <br>
+    </td>
+    <td>转出目的地的类型</td>
+  </tr>
+  <tr>
+    <td>to</td><td>String</td><td>是</td>
+    <td>
+        长度为3 ~ 60的字符串
+    </td>
+    <td>接收人</td>
+  </tr>
+  <tr>
+    <td>Amount</td><td>Number</td><td>是</td>
+    <td>
+      正数,最多支持小数点后 8 位精度
+    </td>
+    <td>转出金额</td>
+  </tr>
+
+</table>
+
+***JSON请求示例:***
+```json
+{"method":"transferBTC","params":["btc_address","1KuCoin5Rew1viKZYkgeds21Y19pdLpuhb",1.1201],"id":1}
+```
+***返回值:***
+<table>
+  <tr>
+    <th>名称</th><th>类型</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>result</td><td>Boolean</td><td>转账成功返回true</td>
+  </tr>
+</table>
+***JSON返回示例:***
+```json
+{"result":true,"id":"1"} 
+```
 
 交易接口
 --------
@@ -86,7 +139,6 @@
 - [cancelOrder](#cancelorder)
 - [getOrder](#getorder)
 - [getOrders](#getorders)
-- [transferBTC](#transferBTC)
 
 ***
 
@@ -100,10 +152,10 @@
     <th>参数</th><th>类型</th><th>必选</th><th>说明</th>
   </tr>
   <tr>
-    <td>Price</td><td>Number</td><td>是</td><td>买 1 比特币所接受的人民币价格，最多支持小数点后 2 位精度</td>
+    <td>price</td><td>Number</td><td>是</td><td>买 1 比特币所接受的人民币价格，最多支持小数点后 2 位精度</td>
   </tr>
   <tr>
-    <td>Amount</td><td>Number</td><td>是</td><td>要买入的比特币数量，最多支持小数点后 8 位精度</td>
+    <td>amount</td><td>Number</td><td>是</td><td>要买入的比特币数量，最多支持小数点后 8 位精度</td>
   </tr>
 </table>
 
@@ -135,10 +187,10 @@
     <th>参数</th><th>类型</th><th>必选</th><th>说明</th>
   </tr>
   <tr>
-    <td>Price</td><td>Number</td><td>是</td><td>卖 1 比特币所开出的人民币价格，最多支持小数点后 2 位精度</td>
+    <td>price</td><td>Number</td><td>是</td><td>卖 1 比特币所开出的人民币价格，最多支持小数点后 2 位精度</td>
   </tr>
   <tr>
-    <td>Amount</td><td>Number</td><td>是</td><td>要卖出的比特币数量，最多支持小数点后 8 位精度</td>
+    <td>amount</td><td>Number</td><td>是</td><td>要卖出的比特币数量，最多支持小数点后 8 位精度</td>
   </tr>
 </table>
 

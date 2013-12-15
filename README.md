@@ -1,11 +1,16 @@
 行情数据接口
 --------
 
-钱包接口
+钱包/交易接口
 --------
 - [getBalance](#getbalance)
 - [getTransactions](#gettransactions)
-- [transferBTC](#transferBTC)
+- [transferBTC](#transferbtc)
+- [buyOrder](#buyorder)
+- [sellOrder](#sellorder)
+- [cancelOrder](#cancelorder)
+- [getOrder](#getorder)
+- [getOrders](#getorders)
 
 ***
 ### getTransactions  
@@ -130,15 +135,6 @@
 ```json
 {"result":true,"id":"1"} 
 ```
-
-交易接口
---------
-
-- [buyOrder](#buyorder)
-- [sellOrder](#sellorder)
-- [cancelOrder](#cancelorder)
-- [getOrder](#getorder)
-- [getOrders](#getorders)
 
 ***
 

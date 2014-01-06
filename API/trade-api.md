@@ -170,6 +170,7 @@ PHP示例代码：
 ```json
 {"method":"addContact","params":["1KuCoin5Rew1viKZYkgeds21Y19pdLpuhb","John"],"id":1}
 ```
+
 ***返回值:***
 <table>
   <tr>
@@ -179,6 +180,7 @@ PHP示例代码：
     <td>result</td><td>Boolean</td><td>添加结果</td>
   </tr>
 </table>
+
 ***JSON返回示例:***
 ```json
 { "result": true, "id": 1 }

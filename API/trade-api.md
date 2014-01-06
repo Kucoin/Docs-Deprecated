@@ -385,7 +385,11 @@ amount | Number | 是 |  正数,最多支持小数点后 8 位精度 | 转出金
 
 ***JSON请求示例:***
 ```json
-{"method":"transferBTC","params":["btc_address","1KuCoin5Rew1viKZYkgeds21Y19pdLpuhb",1.1201],"id":1}
+{ 
+    "method":"transferBTC",
+    "params":["btc_address","1KuCoin5Rew1viKZYkgeds21Y19pdLpuhb",1.1201],
+    "id":1
+}
 ```
 ***返回值:***
 

@@ -1,8 +1,8 @@
 钱包/交易接口 
 --------
-***以下均为私密接口，调用前需要使用账户的访问密钥进行[接口签名认证](#接口签名认证详细步骤)，并以HTTP POST(JsonRPC 2.0)的方式进行调用***
+以下均为私密接口，调用前需要使用账户的访问密钥进行[接口签名认证](#接口签名认证详细步骤)，并以HTTP POST(JsonRPC 2.0)的方式进行调用
 
-***当前私密接口一共包含四种权限： 查询[GETINFO] , 更新信息[UPDATEINFO] , 交易[TRADE], 转账[TRANSFER] ，请在网站开发接口页面进行授权***
+当前私密接口一共包含四种权限： 查询[GETINFO] , 更新信息[UPDATEINFO] , 交易[TRADE], 转账[TRANSFER] ，请在网站开发接口页面进行授权
  
 - [getContacts](#getcontacts)   获取所有收款人
 - [addContact](#addcontact)   添加收款人
@@ -114,14 +114,12 @@ PHP示例代码：
 {"method":"getContacts","params":[],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Object[]</td><td>Contact对象数组</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明
+--- | --- | ---
+result  | Object[] | Contact对象数组
+
+
 ***JSON返回示例:***
 ```json
 {
@@ -154,17 +152,11 @@ PHP示例代码：
 
 ***参数:*** 
 
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>Address</td><td>String</td><td>联系人的收款地址，可以是比特币地址，KUCOIN的用户名或者登录邮箱（请自行确保其有效性）</td>
-  </tr>
-  <tr>
-    <td>Name</td><td>String</td><td>用于显示的收款人姓名</td>
-  </tr>
-</table>
+名称  | 类型 | 说明
+--- | --- | ---
+Address  | String | 联系人的收款地址，可以是比特币地址，KUCOIN的用户名或者登录邮箱（请自行确保其有效性）
+Name | String | 用于显示的收款人姓名
+
 
 ***JSON请求示例:***
 ```json
@@ -172,14 +164,10 @@ PHP示例代码：
 ```
 
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Boolean</td><td>添加结果</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明
+--- | --- | ---
+result  | Boolean | 添加结果
 
 ***JSON返回示例:***
 ```json
@@ -200,14 +188,11 @@ PHP示例代码：
 {"method":"createBTCAddress","params":[],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Object</td><td>Address对象</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明
+--- | --- | ---
+result  | Object | Address对象
+
 ***JSON返回示例:***
 ```json
 {
@@ -238,14 +223,11 @@ PHP示例代码：
 {"method":"getBTCAddresses","params":[],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Object[]</td><td>Address对象数组</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明
+--- | --- | ---
+result  | Object[] | Address对象数组
+
 ***JSON返回示例:***
 ```json
 {
@@ -279,14 +261,11 @@ PHP示例代码：
 {"method":"getAccount","params":[],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Object</td><td>Account对象</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明
+--- | --- | ---
+result  | Object | Account对象
+
 ***JSON返回示例:***
 ```json
 {
@@ -317,14 +296,11 @@ PHP示例代码：
 {"method":"getBalance","params":[],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Object[]</td><td>包含Balance对象的数组</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明
+--- | --- | ---
+result  | Object[] | 包含Balance对象的数组
+
 ***JSON返回示例:***
 ```json
 {
@@ -352,46 +328,22 @@ PHP示例代码：
 ***描述:***  获取交易记录
 
 ***参数:***
-<table>
-  <tr>
-    <th>参数</th><th>类型</th><th>必选</th><th>允许值</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>type</td><td>String</td><td>是</td>
-    <td>
-      'btc_deposit' : 比特币充值记录 <br>
-      'btc_transfer' : 比特币转账和提现记录 <br>
-      'trade_btc' : 比特币交易记录(包含买入和卖出记录) <br>
-      'buy_btc' : 比特币买入记录 <br>
-      'sell_btc' : 比特币卖出记录 <br>
-      'btc_transfer_fee' : 比特币转账和提现手续费 <br>
-      'trade_fee' : 交易手续费
-    </td>
-    <td>获取特定类型的交易记录</td>
-  </tr>
-  <tr>
-    <td>type</td><td>Number</td><td>否</td>
-    <td>
-      正整数,缺省值为10
-    </td>
-    <td>获取数量</td>
-  </tr>
 
-</table>
+参数  | 类型 | 必选 | 允许值 | 说明
+--- | --- | --- | --- | ---
+type  | String | 是 |  'btc_deposit' : 比特币充值记录 <br>'btc_transfer' : 比特币转账和提现记录 <br>'trade_btc' : 比特币交易记录(包含买入和卖出记录) <br>'buy_btc' : 比特币买入记录 <br>'sell_btc' : 比特币卖出记录 <br>'btc_transfer_fee' : 比特币转账和提现手续费 <br>'trade_fee' : 交易手续费 | 获取特定类型的交易记录
+type | Number | 否 |  正整数,缺省值为10 | 获取数量
 
 ***JSON请求示例:***
 ```json
 {"method":"getTransactions","params":['trade_btc',2],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Array</td><td>包含Transaction对象的数组</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明
+--- | --- | ---
+result  | Array | 包含Transaction对象的数组
+
 ***JSON返回示例:***
 ```json
 {
@@ -424,49 +376,23 @@ PHP示例代码：
 ***接口权限: 转账*** 
 
 ***参数:***
-<table>
-  <tr>
-    <th>参数</th><th>类型</th><th>必选</th><th>允许值</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>type</td><td>String</td><td>是</td>
-    <td>
-      'btc_address' : 比特币地址 <br>
-      'username' :  KUCOIN用户名 <br>
-      'email' : KUCOIN用户的邮箱 <br>
-    </td>
-    <td>转出目的地的类型</td>
-  </tr>
-  <tr>
-    <td>to</td><td>String</td><td>是</td>
-    <td>
-        长度为3 ~ 60的字符串
-    </td>
-    <td>接收人</td>
-  </tr>
-  <tr>
-    <td>Amount</td><td>Number</td><td>是</td>
-    <td>
-      正数,最多支持小数点后 8 位精度
-    </td>
-    <td>转出金额</td>
-  </tr>
 
-</table>
+参数  | 类型 | 必选 | 允许值 | 说明
+--- | --- | --- | --- | ---
+type | String | 是 |   'btc_address' : 比特币地址 <br>'username' :  KUCOIN用户名 <br>'email' : KUCOIN用户的邮箱 <br>| 转出目的地的类型
+to | String | 是 |  长度为3 ~ 60的字符串 | 接收人
+amount | Number | 是 |  正数,最多支持小数点后 8 位精度 | 转出金额
 
 ***JSON请求示例:***
 ```json
 {"method":"transferBTC","params":["btc_address","1KuCoin5Rew1viKZYkgeds21Y19pdLpuhb",1.1201],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Boolean</td><td>转账成功返回true</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明
+--- | --- | ---
+result  | Boolean | 转账成功返回true
+
 ***JSON返回示例:***
 ```json
 {"result":true,"id":"1"} 
@@ -481,31 +407,22 @@ PHP示例代码：
 ***接口权限: 交易*** 
 
 ***参数:***
-  <table>
-  <tr>
-    <th>参数</th><th>类型</th><th>必选</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>price</td><td>Number</td><td>是</td><td>买 1 比特币所接受的人民币价格，最多支持小数点后 2 位精度</td>
-  </tr>
-  <tr>
-    <td>amount</td><td>Number</td><td>是</td><td>要买入的比特币数量，最多支持小数点后 8 位精度</td>
-  </tr>
-</table>
+
+名称  | 类型 | 必选 | 说明 | 
+--- | --- | --- | ---
+price  | Number | 是 | 买 1 比特币所接受的人民币价格，最多支持小数点后 2 位精度
+amount  | Number | 是 | 要买入的比特币数量，最多支持小数点后 8 位精度
 
 ***JSON请求示例:***
 ```json
 {"method":"buyOrder","params":[1000,1],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Boolean</td><td>如果下单成功，返回 true</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明 | 
+--- | --- | --- 
+price  | Boolean | 如果下单成功，返回 true
+
 ***JSON返回示例:***
 ```json
 {"result":true,"id":"1"} 
@@ -518,31 +435,22 @@ PHP示例代码：
 ***接口权限: 交易*** 
 
 ***参数:***
-  <table>
-  <tr>
-    <th>参数</th><th>类型</th><th>必选</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>price</td><td>Number</td><td>是</td><td>卖 1 比特币所开出的人民币价格，最多支持小数点后 2 位精度</td>
-  </tr>
-  <tr>
-    <td>amount</td><td>Number</td><td>是</td><td>要卖出的比特币数量，最多支持小数点后 8 位精度</td>
-  </tr>
-</table>
+
+名称  | 类型 | 必选 | 说明 | 
+--- | --- | --- | ---
+price  | Number | 是 | 卖 1 比特币所开出的人民币价格，最多支持小数点后 2 位精度
+amount  | Number | 是 | 要卖出的比特币数量，最多支持小数点后 8 位精度
 
 ***JSON请求示例:***
 ```json
 {"method":"sellOrder","params":[1000,1],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Boolean</td><td>如果下单成功，返回 true</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明 | 
+--- | --- | --- 
+result  | Boolean | 如果下单成功，返回 true
+
 ***JSON返回示例:***
 ```json
 {"result":true,"id":"1"} 
@@ -555,29 +463,21 @@ PHP示例代码：
 ***接口权限: 交易*** 
 
 ***参数:***
-  <table>
-  <tr>
-    <th>参数</th><th>类型</th><th>必选</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>id</td><td>Number</td><td>是</td><td>挂单编号</td>
-  </tr>
 
-</table>
+名称  | 类型 | 必选 | 说明 | 
+--- | --- | --- | ---
+id  | String | 是 | 挂单编号
 
 ***JSON请求示例:***
 ```json
 {"method":"cancelOrder","params":[12],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Boolean</td><td>如果取消挂单成功，返回 true</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明 | 
+--- | --- | --- 
+result  | Boolean | 如果取消挂单成功，返回 true
+
 ***JSON返回示例:***
 ```json
 {"result":true,"id":"1"} 
@@ -590,13 +490,10 @@ PHP示例代码：
 ***接口权限: 查询*** 
 
 ***参数:***
-  <table>
-  <tr>
-    <th>参数</th><th>类型</th><th>必选</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>id</td><td>Number</td><td>是</td><td>挂单编号</td>
-  </tr>
+
+名称  | 类型 | 必选 | 说明 | 
+--- | --- | --- | ---
+id  | String | 是 | 挂单编号
 
 </table>
 
@@ -605,14 +502,11 @@ PHP示例代码：
 {"method":"getOrder","params":[12],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Object</td><td>Order对象</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明 | 
+--- | --- | --- 
+result  | Object | Order对象
+
 ***JSON返回示例:***
 ```json
 {
@@ -637,36 +531,21 @@ PHP示例代码：
 ***接口权限: 查询*** 
 
 ***参数:***
-  <table>
-  <tr>
-    <th>参数</th><th>类型</th><th>必选</th><th>允许值</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>status</td><td>String</td><td>是</td>
-    <td>
-    'all' : 所有订单<br>
-    'open' : 活动的订单 <br>
-    'has_deal' : 有成交的订单 <br>
-    'processed' : 完全成交的订单 <br>
-    'canceled' : 已取消的订单</td>
-    <td>获取特定状态的订单</td>
-  </tr>
 
-</table>
+名称  | 类型 | 必选 | 允许值 | 说明 | 
+--- | --- | --- | --- | ---
+status  | String | 是 |  'all' : 所有订单<br>'open' : 活动的订单 <br>'has_deal' : 有成交的订单 <br>'processed' : 完全成交的订单 <br>'canceled' : 已取消的订单 | 获取特定状态的订单
 
 ***JSON请求示例:***
 ```json
 {"method":"getOrders","params":['all'],"id":1}
 ```
 ***返回值:***
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>result</td><td>Array</td><td>包含Order对象的数组</td>
-  </tr>
-</table>
+
+名称  | 类型 | 说明 | 
+--- | --- | --- 
+result  | Array | 包含Order对象的数组
+
 ***JSON返回示例:***
 ```json
 {

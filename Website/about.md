@@ -7,7 +7,7 @@
 * 通信以银行级标准AES加密，杜绝泄密风险
 * 外汇交易所吞吐量设计，压力测试提供超过10<sup>10</sup>个挂单日处理量，满足超大行情交易需要
 
-##官方微薄
-* 新浪微薄：http://weibo.com/kucoin
-* 服务邮箱：service@kucoin.com
+##官方微博
+* 新浪微博：http://weibo.com/kucoin
+* 服务邮箱：hi@kucoin.com
     

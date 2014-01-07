@@ -8,22 +8,11 @@
 ***GET:***  https://www.kucoin.com/data/depth
 
 ***参数:*** 
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>可选值</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>limit</td><td>Number</td><td>10(默认),50,100</td><td>获取条数</td>
-  </tr>
-  <tr>
-    <td>group</td><td>Number</td><td>
-    0 : 不合并 <br>
-    1 : 以0.1元为单位合并数据 <br>
-    2 : 以1元为单位合并数据 (默认)<br>
-    3 : 以10元为单位合并数据 
-    </td><td>合并数据的方式</td>
-  </tr>
-</table>
+
+名称 | 类型 | 可选值 | 说明
+--- | --- | --- | --- 
+limit | Number | 10(默认),50,100 | 获取条数
+group | Number | 0 : 不合并 <br>1 : 以0.1元为单位合并数据 <br>2 : 以1元为单位合并数据 (默认)<br>3 : 以10元为单位合并数据  | 合并数据的方式
 
 ***
 ### Ticker 
@@ -38,14 +27,9 @@
 ***GET:***  https://www.kucoin.com/data/deal
 
 ***参数:*** 
-<table>
-  <tr>
-    <th>名称</th><th>类型</th><th>可选值</th><th>说明</th>
-  </tr>
-  <tr>
-    <td>limit</td><td>Number</td><td>10(默认),50,100</td><td>获取条数</td>
-  </tr>
-  <tr>
-    <td>time</td><td>Number</td><td>Unix时间戳</td><td>只返回此时间之后的成交记录</td>
-  </tr>
-</table>
+
+名称 | 类型 | 可选值 | 说明
+--- | --- | --- | --- 
+limit | Number | 10(默认),50,100 | 获取条数
+time | Number | Unix时间戳 | 只返回此时间之后的成交记录
+

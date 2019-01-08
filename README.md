@@ -7,7 +7,7 @@ With the reliable and extendable technical architecture in place, Kucoin team st
 
 Here we present you the API document of 2013. For your information, the address of our exchange platform is https://www.kucoin.com
 
-And this is where you can find the current API document: http://docs.kucoinapidocs.apiary.io/.
+And this is where you can find the current API document: http://docs.kucoin.com .
 
 
 ## 尊敬的用户您好：

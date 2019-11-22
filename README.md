@@ -18,4 +18,4 @@ And this is where you can find the current API document: http://docs.kucoin.com 
 
 这是我们2013年的API文档，我们于2017年上线的交易平台地址位于：https://www.kucoin.com
 
-平台当前API文档请移步此处查阅：http://docs.kucoinapidocs.apiary.io/ 
+平台当前API文档请移步此处查阅：http://docs.kucoin.com
